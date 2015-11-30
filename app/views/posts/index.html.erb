@@ -1,0 +1,73 @@
+<div class="row">
+  <div class="col-xs-4 col-xs-offset-4">
+    <%= simple_form_for @post do |f| %>
+      <div class="form-group text-center">
+        <%= f.input :url, label: 'Enter the url of your creation', placeholder: 'http://', error: 'You have to specify a url to add a new creation', class: 'form-control' %>
+      </div>
+      <%= f.button :submit, class: 'form-control btn btn-primary' %>
+    <% end %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xs-4 col-xs-offset-4">
+    <h3>Choose a category</h3>
+    <h3>Choose 3 to 5 interests</h3>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xs-4 col-xs-offset-4">
+    <h3>Be aware of our policies</h3>
+    <h3>submit your creation</h3>
+  </div>
+</div>
+
+
+
+
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Posts</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Category</th>
+      <th>Interest</th>
+      <th>Type</th>
+      <th>Url</th>
+      <th>Image</th>
+      <th>Video</th>
+      <th>Site name</th>
+      <th>User</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @posts.each do |post| %>
+      <tr>
+        <td><%= post.title %></td>
+        <td><%= post.description %></td>
+        <td><%= post.category %></td>
+        <td><%= post.interest %></td>
+        <td><%= post.type %></td>
+        <td><%= post.url %></td>
+        <td><%= post.image %></td>
+        <td><%= post.video %></td>
+        <td><%= post.site_name %></td>
+        <td><%= post.user %></td>
+        <td><%= link_to 'Show', post %></td>
+        <td><%= link_to 'Edit', edit_post_path(post) %></td>
+        <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Post', new_post_path %>

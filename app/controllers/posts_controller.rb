@@ -4,6 +4,7 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
+    @category = params[:cat]
     @posts = Post.all
     @post = Post.new
   end
@@ -25,7 +26,6 @@ class PostsController < ApplicationController
   # POST /posts
   # POST /posts.json
 def create
-  raise
   @post = Post.new(post_params) do |post|
     post.user = current_user
   end

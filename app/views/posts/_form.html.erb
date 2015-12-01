@@ -10,48 +10,77 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= f.label :title %><br>
-    <%= f.text_field :title %>
-  </div>
-  <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_field :description %>
-  </div>
-  <div class="field">
-    <%= f.label :category %><br>
-    <%= f.text_field :category %>
-  </div>
-  <div class="field">
-    <%= f.label :interest %><br>
-    <%= f.text_field :interest %>
-  </div>
-  <div class="field">
-    <%= f.label :type %><br>
-    <%= f.text_field :type %>
-  </div>
-  <div class="field">
-    <%= f.label :url %><br>
-    <%= f.text_field :url %>
-  </div>
-  <div class="field">
-    <%= f.label :image %><br>
-    <%= f.text_field :image %>
-  </div>
-  <div class="field">
-    <%= f.label :video %><br>
-    <%= f.text_field :video %>
-  </div>
-  <div class="field">
-    <%= f.label :site_name %><br>
-    <%= f.text_field :site_name %>
-  </div>
-  <div class="field">
-    <%= f.label :user_id %><br>
-    <%= f.text_field :user_id %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
 <% end %>
+
+<div class="row">
+  <div class= "text-center" >
+    <h4 class="text-center">Choose the type of content you create</h4>
+    <button type="button" class="btn btn-default" id="charity-cat">Charity</button>
+    <button type="button" class="btn btn-default" id="music-cat">Music</button>
+    <button type="button" class="btn btn-default" id="news-cat">News</button>
+    <button type="button" class="btn btn-default" id="photos-cat">Photos</button>
+    <button type="button" class="btn btn-default" id="videos-cat">Videos</button>
+  </div>
+</div>
+
+<hr>
+
+<div class="row">
+  <div class="text-center col-xs-6 col-md-offset-3">
+    <h4>Enter the url of your creation</h4>
+    <%= simple_form_for @post do |f| %>
+      <div class="form-group text-center">
+         <input type="text" id="post-url" class="form-control">
+      </div>
+    <% end %>
+  </div>
+  <div id="results"></div>
+</div>
+
+<hr>
+
+<div class="row">
+  <div class="text-center col-xs-6 col-md-offset-3">
+    <h4>Choose 3 to 5 interests</h4>
+  </div>
+</div>
+
+<hr>
+
+<div class="row">
+  <div class="text-center">
+    <p>By clicking Submit your creation, you agree to be the creator of this content <br> and to the <a href="">Flykke Pages Terms</a>.</p>
+  </div>
+</div>
+
+<br>
+
+<div class="row">
+  <div class="text-center col-xs-6 col-md-offset-3">
+     <button type="button" id="post" class="actions-inline btn btn-primary">Submit your creation</button>
+     <p class="actions-inline">or</p>
+     <p class="actions-inline"><%= link_to 'Back', posts_path %></p>
+  </div>
+</div>
+
+<%= form_for @post do |f| %>
+  <%= f.text_field :title, class: "hidden" %>
+  <%= f.text_field :description, class: "hidden" %>
+  <%= f.text_field :category, class: "hidden" %>
+  <%= f.text_field :interest, class: "hidden" %>
+  <%= f.text_field :type, class: "hidden" %>
+  <%= f.text_field :url, class: "hidden" %>
+  <%= f.text_field :image, class: "hidden" %>
+  <%= f.text_field :video, class: 'hidden' %>
+  <%= f.text_field :site_name, class: "hidden" %>
+<% end %>
+
+
+<%= content_for :after_js do %>
+  <%= javascript_tag do %>
+    $( function(){ $('#post-url').on('keyup', create_post_result);} );
+  <% end %>
+<% end %>
+
+
+

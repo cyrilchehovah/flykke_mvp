@@ -28,14 +28,18 @@
 <div class="row">
   <div class="text-center col-xs-6 col-md-offset-3">
     <h4>Enter the url of your creation</h4>
-    <%= simple_form_for @post do |f| %>
-      <div class="form-group text-center">
-         <input type="text" id="post-url" class="form-control">
-      </div>
+    <%= simple_form_for(@post, :url => new_preview_path) do |f| %>
+      <%= f.input :url %>
+      <%= f.submit 'load url', :id => 'submit_url' %>
     <% end %>
   </div>
-  <div id="results"></div>
+
+  <div id="results">
+  </div>
 </div>
+
+
+<!-- metainspector = Metainspector.new(search-string) -->
 
 <hr>
 
@@ -78,7 +82,7 @@
 
 <%= content_for :after_js do %>
   <%= javascript_tag do %>
-    $( function(){ $('#post-url').on('keyup', create_post_result);} );
+    $( function(){ $('#submit-url').on('keyup', search_post);} );
   <% end %>
 <% end %>
 

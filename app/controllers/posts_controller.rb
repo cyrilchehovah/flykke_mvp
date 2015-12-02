@@ -1,3 +1,6 @@
+# require 'Metainspector'
+# require 'open-uri'
+
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
 
@@ -14,9 +17,17 @@ class PostsController < ApplicationController
   def show
   end
 
+  def new_preview
+    search_string = params[:post][:url]
+    @page = MetaInspector.new(search_string)
+    @post = Post.new
+    @post.title = @page.title
+    render new_post_path
+  end
+
   # GET /posts/new
   def new
-    @post = Post.new
+    @post = Post.create
   end
 
   # GET /posts/1/edit

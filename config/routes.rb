@@ -2,6 +2,9 @@ Rails.application.routes.draw do
   resources :posts
   devise_for :users
   root to: 'pages#home'
+
+  post 'new_preview', to: 'posts#new_preview', as: 'new_preview'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -20,14 +20,14 @@ class PostsController < ApplicationController
   def new_preview
     search_string = params[:post][:url]
     @page = MetaInspector.new(search_string)
-    @post = Post.new
-    @post.title = @page.title
-    render new_post_path
+    @category = params[:category]
+    @post = Post.new(title: @page.best_title, category: @category, description: @page.description)
+    # render new_post_path
   end
 
   # GET /posts/new
   def new
-    @post = Post.create
+    @post = Post.new
   end
 
   # GET /posts/1/edit
@@ -43,7 +43,7 @@ def create
   if @post.save
     redirect_to root_path
   else
-    redirect_to root_path, notice: @post.errors.full_messages.first
+    render :new, notice: @post.errors.full_messages.first
   end
 end
 
@@ -69,6 +69,24 @@ end
       format.html { redirect_to posts_url, notice: 'Post was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def upvote
+    @post = Post.find(params[:id])
+    @post.upvote_by current_user,
+    redirect_to :back
+  end
+
+  def downvote
+    @post = Post.find(params[:id])
+    @post.downvote_by current_user
+    redirect_to :back
+  end
+
+  def flykke
+    @post = Post.find(params[:id])
+    @post.liked_by current_user, :vote => 'flykke', :vote_scope => 'flykke'
+    redirect_to :back
   end
 
   private

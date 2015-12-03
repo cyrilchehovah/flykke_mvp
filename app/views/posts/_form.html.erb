@@ -15,11 +15,11 @@
 <div class="row">
   <div class= "text-center" >
     <h4 class="text-center">Choose the type of content you create</h4>
-    <button type="button" class="btn btn-default" id="charity-cat">Charity</button>
-    <button type="button" class="btn btn-default" id="music-cat">Music</button>
-    <button type="button" class="btn btn-default" id="news-cat">News</button>
-    <button type="button" class="btn btn-default" id="photos-cat">Photos</button>
-    <button type="button" class="btn btn-default" id="videos-cat">Videos</button>
+    <button type="button" class="btn btn-default post-category" id="charity-cat">Charity</button>
+    <button type="button" class="btn btn-default post-category" id="music-cat">Music</button>
+    <button type="button" class="btn btn-default post-category" id="news-cat">News</button>
+    <button type="button" class="btn btn-default post-category" id="photos-cat">Photos</button>
+    <button type="button" class="btn btn-default post-category" id="videos-cat">Videos</button>
   </div>
 </div>
 
@@ -28,15 +28,16 @@
 <div class="row">
   <div class="text-center col-xs-6 col-md-offset-3">
     <h4>Enter the url of your creation</h4>
-    <%= simple_form_for(@post, :url => new_preview_path) do |f| %>
+    <%= simple_form_for(@post, :url => new_preview_path, remote: true) do |f| %>
       <%= f.input :url %>
-      <%= f.submit 'load url', :id => 'submit_url' %>
+      <%= hidden_field_tag :category, nil, id: "preview_category" %>
+      <%= f.submit 'load url', :id => 'submit_url', disabled: true  %>
     <% end %>
   </div>
+</div>
 
   <div id="results">
   </div>
-</div>
 
 
 <!-- metainspector = Metainspector.new(search-string) -->
@@ -59,32 +60,10 @@
 
 <br>
 
-<div class="row">
-  <div class="text-center col-xs-6 col-md-offset-3">
-     <button type="button" id="post" class="actions-inline btn btn-primary">Submit your creation</button>
-     <p class="actions-inline">or</p>
-     <p class="actions-inline"><%= link_to 'Back', posts_path %></p>
-  </div>
+
+<div class="js-post-hidden-form">
+  <%= render 'hidden_form', post: @post %>
 </div>
-
-<%= form_for @post do |f| %>
-  <%= f.text_field :title, class: "hidden" %>
-  <%= f.text_field :description, class: "hidden" %>
-  <%= f.text_field :category, class: "hidden" %>
-  <%= f.text_field :interest, class: "hidden" %>
-  <%= f.text_field :type, class: "hidden" %>
-  <%= f.text_field :url, class: "hidden" %>
-  <%= f.text_field :image, class: "hidden" %>
-  <%= f.text_field :video, class: 'hidden' %>
-  <%= f.text_field :site_name, class: "hidden" %>
-<% end %>
-
-
-<%= content_for :after_js do %>
-  <%= javascript_tag do %>
-    $( function(){ $('#submit-url').on('keyup', search_post);} );
-  <% end %>
-<% end %>
 
 
 

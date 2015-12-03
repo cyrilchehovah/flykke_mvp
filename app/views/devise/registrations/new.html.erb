@@ -2,6 +2,21 @@
   <div class="col-lg-4 col-lg-offset-4 well">
     <h3 class="text-center">Sign up</h3>
     <br>
+
+    <div class="already-signup">
+      <span>Already signup?</span>
+      <%= link_to "Log in", new_user_session_path %>
+    </div>
+
+    <%= link_to omniauth_authorize_path(resource_name, :facebook), class: "btn btn-primary btn-facebook" do %>
+      <i class="fa fa-facebook fa-2x fb-button" ></i>Sign in with <%= :facebook.to_s.titleize %>
+    <% end %>
+
+    <div class="signup-or-separator">
+      <span class="signup-or-separator--text">ou</span>
+      <hr>
+    </div>
+
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
       <% if resource.errors.any? %>
         <div class="alert alert-danger alert-dismissable">

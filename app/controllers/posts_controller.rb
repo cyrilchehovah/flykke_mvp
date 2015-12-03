@@ -20,14 +20,14 @@ class PostsController < ApplicationController
   def new_preview
     search_string = params[:post][:url]
     @page = MetaInspector.new(search_string)
-    @post = Post.new
-    @post.title = @page.title
-    render new_post_path
+    @category = params[:category]
+    @post = Post.new(title: @page.best_title, category: @category, description: @page.description)
+    # render new_post_path
   end
 
   # GET /posts/new
   def new
-    @post = Post.create
+    @post = Post.new
   end
 
   # GET /posts/1/edit

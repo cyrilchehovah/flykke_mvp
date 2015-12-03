@@ -1,0 +1,13 @@
+  // On récupère toutes les infos et on en fait un beau hash
+    // la logique :
+    // 1. On regarde s'il y a des meta-tags og (fb = les meilleures) => Si oui on les prend / si non on continue
+    // 2. On regarde s'il y a des meta-tags twitter => Si oui on les prend / si non on continue
+    // 3. On regarde s'il y a des meta-tags google  => Si oui on les prend / si non on continue
+    // 4. On regarde s'il y a des meta-tags pinterests => Si oui on les prend / si non on continue
+    // 5. On regarde s'il y a des meta-tags => Si oui on les prend / si non on lève une erreur!
+  $('#results').html("<%= j render 'posts/preview', page: @page, category: @category %>");
+  $('.js-post-hidden-form').html("<%= j render 'posts/hidden_form', post: @post %>");
+
+
+
+

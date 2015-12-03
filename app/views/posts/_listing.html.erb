@@ -1,0 +1,36 @@
+<% posts.each do |post| %>
+  <div class="row">
+  <div class="media col-xs-8 col-md-offset-2">
+    <div class="media-body">
+      <section class="media-section">
+         <h3><%= post.title %></h3>
+      </section>
+      <section class="media-section">
+         <img src="<%= post.image %>" alt="book-cover" class="result-img img-responsive">
+      </section>
+      <section class="media-section">
+        <h4><%= post.description %></h4>
+      </section>
+    </div>
+    <div class="media-aside">
+      <section class="media-section">
+        <img src="<%= current_user.picture %>" alt="book-cover" class="result-img img-responsive">
+        ...
+      </section>
+      <section class="media-section">
+        <h2>Share</h2>
+        ...
+      </section>
+      <section class="media-section">
+        <h2>382 upvotes</h2>
+        ...
+      </section>
+    </div>
+  </div>
+  </div>
+  <% if current_user == post.user %>
+    <%= link_to 'Show', post %>
+    <%= link_to 'Edit', edit_post_path(post) %>
+    <%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %>
+  <% end %>
+<% end %>

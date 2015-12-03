@@ -43,7 +43,7 @@ def create
   if @post.save
     redirect_to root_path
   else
-    redirect_to root_path, notice: @post.errors.full_messages.first
+    render :new, notice: @post.errors.full_messages.first
   end
 end
 

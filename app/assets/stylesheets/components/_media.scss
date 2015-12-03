@@ -1,7 +1,13 @@
 .media {
   display: flex;
+  border: $gray 1px solid;
+  padding: 0px;
+  border-radius: 5px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  &-body {
+    background: white;
+  }
   &-section {
-    margin: 40px auto;
     padding: 10px;
     &:first-child {
       margin-top: 0;
@@ -21,7 +27,15 @@
     flex: 0 0 350px;
     padding: 30px;
     align-self: stretch;
-    background: #F8F7F7;
-    border-left: 1px solid #f0efef;
+    background: $gray-light;
+    border-left: 1px solid $gray;
+  }
+  h1, h2, h3, h4 {
+    padding: 0px;
+    margin: 0px;
+  }
+
+  h3 {
+    font-size: 20px;
   }
 }

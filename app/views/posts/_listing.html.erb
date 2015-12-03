@@ -1,20 +1,28 @@
 <% posts.each do |post| %>
   <div class="row">
   <div class="media col-xs-8 col-md-offset-2">
+
     <div class="media-body">
       <section class="media-section">
-         <h3><%= post.title %></h3>
+         <h3><%= post.title %></h3><span class="label label-primary"><%= post.category %></span>
       </section>
       <section class="media-section">
          <img src="<%= post.image %>" alt="book-cover" class="result-img img-responsive">
       </section>
       <section class="media-section">
         <h4><%= post.description %></h4>
+        <% if post.site_name? %>
+          <small><%= post.site_name %></small>
+        <% else %>
+          <small><%= post.url %></small>
+        <% end %>
       </section>
     </div>
+
+
     <div class="media-aside">
       <section class="media-section">
-        <img src="<%= post.user.picture %>" alt="book-cover" class="result-img img-responsive">
+        <img src="<%= post.user.picture %>" alt="book-cover" class="media left result-img img-responsive">
         <small><%= time_ago_in_words(post.created_at) %> ago - by <%= post.user.first_name %> <%= post.user.last_name %> </small>
       </section>
       <section class="media-section">

@@ -1,0 +1,95 @@
+.post {
+  display: flex;
+  align-items: center;
+  transition: all 0.15s ease;
+  &-upvote {
+    flex: 0 0 80px;
+    h3 {
+      font-weight: bold;
+      font-size: 23px;
+      margin-top: 11px;
+    }
+  }
+  &-body {
+    flex: 1 1 auto;
+  }
+  &-controls {
+    flex: 0 0 150px;
+    display: flex;
+    align-items: center;
+  }
+  &-control {
+    flex: 1 1 0;
+    text-align: center;
+    color: #E6E6E6;
+    border-right: 1px solid rgba(0, 0, 0, 0.03);
+    &:last-child { border-right: none }
+    &:hover { color: $brand-color !important }
+  }
+  &-vote-count {
+    text-align: center;
+    transition: all 0.15s ease;
+  }
+  &-upvote {
+    text-align: center;
+    transition: all 0.15s ease;
+    &-arrow {
+      transition: all 0.15s ease;
+      width: 0;
+      height: 0;
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      border-top: 6px solid transparent;
+      border-bottom: 9px solid black;
+      border-radius: 2px;
+      margin: auto;
+      &:hover {
+      border-bottom: 9px solid #5898f1;
+      cursor: pointer;
+      }
+    }
+  }
+  &-downvote {
+    text-align: center;
+    transition: all 0.15s ease;
+    &-arrow {
+      transition: all 0.15s ease;
+      width: 0;
+      height: 0;
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      border-top: 9px solid black;
+      border-bottom: 6px solid transparent;
+      border-radius: 2px;
+      margin: auto;
+      &:hover {
+      border-top: 9px solid #5898f1;
+      cursor: pointer;
+      }
+    }
+  }
+  &-body {
+    h3 {
+      font-weight: bold;
+      font-size: 23px;
+      margin-top: 11px;
+    }
+    p {
+      font-weight: 500;
+      color: #999999;
+    }
+  }
+  &-control-hidden {
+    color: transparent;
+    font-size: 15px;
+    transition: all 0.15s ease;
+    border-color: transparent;
+  }
+  // &:hover {
+  //   background: #f7f7fa;
+  //   cursor: pointer;
+  //   .post-control-hidden { border-color: rgba(0, 0, 0, 0.03) }
+  //   // .post-upvote{ transform: scale(1.2) }
+  //   .post-control-hidden{ color: #E6E6E6 }
+  // }
+}

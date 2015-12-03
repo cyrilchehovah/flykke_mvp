@@ -8,6 +8,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'devise'
 gem 'carrierwave'
 gem 'metainspector'
+gem 'acts_as_votable', '~> 0.10.0'
 
 gem 'sass-rails', '~> 5.0'
 gem 'jquery-rails'

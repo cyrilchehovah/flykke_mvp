@@ -1,5 +1,12 @@
 Rails.application.routes.draw do
-  resources :posts
+  resources :posts do
+    member do
+      put "upvote",   to: "posts#upvote"
+      put "downvote", to: "posts#downvote"
+      put "flykke",   to: "posts#flykke"
+    end
+  end
+
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
   root to: 'pages#home'
 

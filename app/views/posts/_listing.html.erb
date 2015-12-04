@@ -1,61 +1,82 @@
-<% posts.each do |post| %>
-  <div class="row">
-  <div class="media col-xs-8 col-md-offset-2">
-    <div class="media-body">
-      <section class="media-section">
-         <h3><%= post.title %></h3>
-      </section>
-      <section class="media-section">
-         <img src="<%= post.image %>" alt="book-cover" class="result-img img-responsive">
-      </section>
-      <section class="media-section">
-        <h4><%= post.description %></h4>
-      </section>
-    </div>
-    <div class="media-aside">
-      <section class="media-section">
-        <img src="<%= post.user.picture %>" alt="book-cover" class="result-img img-responsive">
-        <small><%= time_ago_in_words(post.created_at) %> ago - by <%= post.user.first_name %> <%= post.user.last_name %> </small>
-      </section>
-      <section class="media-section">
-        <h2>Share</h2>
-        ...
-      </section>
-      <section class="media-section">
-        <div class="post">
-          <div class='post-upvote'>
-            <%= link_to upvote_post_path(post), method: :put do %>
-              <div class="post-upvote-arrow">
-              </div>
-            <% end %>
-            <% if post.get_upvotes.size > 1 %>
-              <h3 class="post-vote-count"><%= post.get_upvotes.size %> votes</h3>
+<div class="row">
+  <div class= "text-center" >
+    <h4 class="text-center">Choose a category of content to browse</h4>
+    <button type="button" class="btn btn-default post-category" id="charity-cat">All</button>
+    <button type="button" class="btn btn-default post-category" id="charity-cat">Charity</button>
+    <button type="button" class="btn btn-default post-category" id="music-cat">Music</button>
+    <button type="button" class="btn btn-default post-category" id="news-cat">News</button>
+    <button type="button" class="btn btn-default post-category" id="photos-cat">Photos</button>
+    <button type="button" class="btn btn-default post-category" id="videos-cat">Videos</button>
+  </div>
+</div>
+
+<br>
+
+<div class="row">
+  <% posts.each do |post| %>
+    <div class="row">
+    <div class="media col-xs-8 col-md-offset-2">
+      <div class="media-body">
+        <%= link_to post.url, :target => "_blank", class: "media-link" do %>
+          <section class="media-section">
+             <h2><%= post.title %> <span class="label label-primary pull-right"><%= post.category %></h2></span>
+          </section>
+          <section class="media-section">
+            <img src="<%= post.image %>" alt="post-image" class="post-img img-responsive">
+          </section>
+          <section class="media-section">
+            <h3><%= post.description %></h3>
+            <% if post.site_name? %>
+              <h4><%= post.site_name %></h4>
             <% else %>
-              <h3 class="post-vote-count"><%= post.get_upvotes.size %> vote</h3>
+              <h4><%= post.url %></h4>
             <% end %>
-            <%= link_to downvote_post_path(post), method: :put do %>
-              <div class="post-downvote-arrow">
-              </div>
-            <% end %>
-          </div>
-      </section>
-      <section class="media-section">
-        <%= link_to flykke_post_path(post), method: :put do %>
-          <div class="btn btn-primary">
-            <h3>Flykke</h3>
-          </div>
+          </section>
         <% end %>
-        <% if post.get_likes(:vote_scope => 'flykke').size > 1 %>
-              <h3 class="post-vote-count"><%= post.get_likes(:vote_scope => 'flykke').size %> flykkes given</h3>
-            <% else %>
-              <h3 class="post-vote-count"><%= post.get_likes(:vote_scope => 'flykke').size %> flykke given</h3>
-            <% end %>
-      </section>
+      </div>
+
+
+      <div class="media-aside">
+        <section class="media-section text-center">
+          <img src="<%= post.user.picture %>" alt="book-cover" class="media left result-img img-responsive">
+          <small><%= time_ago_in_words(post.created_at) %> ago - by <%= post.user.first_name %> <%= post.user.last_name %> </small>
+        </section>
+        <section class="media-section">
+          <h2>Share</h2>
+          ...
+        </section>
+        <section class="media-section">
+          <div class="post">
+            <div class='post-upvote'>
+              <%= link_to upvote_post_path(post), method: :put do %>
+                <div class="post-upvote-arrow">
+                </div>
+              <% end %>
+              <% if post.get_upvotes.size > 1 %>
+                <h3 class="post-vote-count"><%= post.get_upvotes.size %> votes</h3>
+              <% else %>
+                <h3 class="post-vote-count"><%= post.get_upvotes.size %> vote</h3>
+              <% end %>
+              <%= link_to downvote_post_path(post), method: :put do %>
+                <div class="post-downvote-arrow">
+                </div>
+              <% end %>
+            </div>
+        </section>
+        <section class="media-section">
+          <%= button_to "Flykke", flykke_post_path(post), class: "btn btn-primary", :method => :put %>
+          <% if post.get_likes(:vote_scope => 'flykke').size > 1 %>
+                <h3 class="post-vote-count"><%= post.get_likes(:vote_scope => 'flykke').size %> flykkes given</h3>
+              <% else %>
+                <h3 class="post-vote-count"><%= post.get_likes(:vote_scope => 'flykke').size %> flykke given</h3>
+              <% end %>
+        </section>
+      </div>
     </div>
-  </div>
-  </div>
-  <% if current_user == post.user %>
-    <%= link_to 'Edit', edit_post_path(post) %>
-    <%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %>
+    </div>
+    <% if current_user == post.user %>
+      <%= link_to 'Edit', edit_post_path(post) %>
+      <%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %>
+    <% end %>
   <% end %>
-<% end %>
+</div>

@@ -1,0 +1,16 @@
+<% if @comment.errors.any? %>
+  // Render new review form with errors
+  $('#new_comment').html("<%= j render 'comments/form', post: post, comment: Comment.new %>");
+<% else %>
+ // Create a paragraph for the new review. But hide it.
+  var new_comment = $("<%= j render 'comments/comment', comment: @comment %>").hide();
+  // Add it to the DOM, at the end of the existing reviews. It's still hidden.
+  $('#comments').append(new_comment);
+  // Show the new review with an animation!
+  new_comment.slideDown();
+  // Remove the text from the content textarea.
+  $('#comment_body').val('');
+
+
+  $('#comment_title').html('<i class="fa fa-comment"> <%= j render 'posts/comment_title', comments: @post.comments %></i>');
+<% end %>

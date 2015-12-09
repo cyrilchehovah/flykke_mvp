@@ -1,0 +1,12 @@
+<div class="comments-wrapper clearfix" id="comment-<%= comment.id %>">
+  <div class="pull-left">
+    <p class="lead"> <%= comment.body %> </p>
+    <p><small>Submitted  <strong> <%= time_ago_in_words(comment.created_at) %> ago</strong> by <%= comment.user.first_name %> <%= comment.user.last_name %></small></p>
+  </div>
+  <div class="btn-group pull-right">
+    <% if current_user == comment.user %>
+      <%= link_to "delete", [comment.post, comment], method: :delete, remote: true, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-primary" %>
+    <% end %>
+  </div>
+</div>
+

@@ -1,0 +1,2 @@
+$('#comment-<%= @comment.id %>').slideUp();
+$('#comment_title').html('<i class="fa fa-comment"> <%= j render 'posts/comment_title', comments: @post.comments %></i>');

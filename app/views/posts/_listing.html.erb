@@ -38,6 +38,7 @@
         <section class="media-section text-center">
           <img src="<%= post.user.picture %>" alt="book-cover" class="media media-profile-picture result-img img-responsive">
           <small><%= time_ago_in_words(post.created_at) %> ago - by <%= post.user.first_name %> <%= post.user.last_name %> </small>
+          <%= render 'follows/form', user: post.user %>
         </section>
         <section class="media-section">
           <h2>Share</h2>
@@ -86,7 +87,6 @@
           <div id="comments">
             <% post.comments.each do |comment| %>
               <%= render 'comments/comment', comment: comment %>
-              <%= render 'comments/last_comment', comment: comment %>
             <% end %>
           </div>
           <div class="form">

@@ -37,7 +37,11 @@
       <div class="media-aside">
         <section class="media-section text-center">
           <img src="<%= post.user.picture %>" alt="book-cover" class="media media-profile-picture result-img img-responsive">
-          <small><%= time_ago_in_words(post.created_at) %> ago - by <%= post.user.first_name %> <%= post.user.last_name %> </small>
+          <small><%= time_ago_in_words(post.created_at) %> ago - by
+            <%= link_to user_path(post.user) do %>
+              <%= post.user.first_name %> <%= post.user.last_name %>
+            <% end %>
+          </small>
           <%= render 'follows/form', user: post.user %>
         </section>
         <section class="media-section">

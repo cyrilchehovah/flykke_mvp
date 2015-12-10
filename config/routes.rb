@@ -1,10 +1,5 @@
 Rails.application.routes.draw do
   resources :posts do
-    member do
-      put "upvote",   to: "posts#upvote"
-      put "downvote", to: "posts#downvote"
-      put "flykke",   to: "posts#flykke"
-    end
     resources :comments, only: [:create, :destroy]
   end
 
@@ -20,8 +15,20 @@ Rails.application.routes.draw do
 
   post 'new_preview', to: 'posts#new_preview', as: 'new_preview'
 
-  match :follow, to: 'follows#create', as: :follow, via: :post
-  match :unfollow, to: 'follows#destroy', as: :unfollow, via: :post
+  match :follow,    to: 'follows#create',   as: :follow, via: :post
+  match :unfollow,  to: 'follows#destroy',  as: :unfollow, via: :post
+
+  match :flykke,    to: 'likes#flykke',     as: :flykke, via: :post
+  match :upvote,    to: 'likes#upvote',     as: :upvote, via: :post
+  match :downvote,  to: 'likes#downvote',   as: :downvote, via: :post
+
+
+
+  # member do
+  #     put "upvote",   to: "posts#upvote"
+  #     put "downvote", to: "posts#downvote"
+  #     put "flykke",   to: "posts#flykke"
+  #   end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -7,6 +7,13 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable, omniauth_providers: [:facebook]
 
 has_many :posts
+has_many :comments
+
+mount_uploader :avatar, AvatarUploader
+mount_uploader :cover, AvatarUploader
+
+validates_presence_of :first_name, :last_name, :email, :password
+
 
 def self.find_for_facebook_oauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
@@ -22,3 +29,11 @@ def self.find_for_facebook_oauth(auth)
     end
   end
 end
+
+
+  # acts_as_voter
+
+  # self.per_page = 10
+
+  # extend FriendlyId
+  # friendly_id :name, use: [:slugged, :finders]

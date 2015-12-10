@@ -36,29 +36,22 @@ class PostsController < ApplicationController
 
   # POST /posts
   # POST /posts.json
-def create
-  @post = Post.new(post_params) do |post|
-    post.user = current_user
+  def create
+    @post = Post.new(post_params) do |post|
+      post.user = current_user
+    end
+    if @post.save
+      redirect_to root_path
+    else
+      render :new, notice: @post.errors.full_messages.first
+    end
   end
-  if @post.save
-    redirect_to root_path
-  else
-    render :new, notice: @post.errors.full_messages.first
-  end
-end
 
   # PATCH/PUT /posts/1
   # PATCH/PUT /posts/1.json
   def update
-    respond_to do |format|
-      if @post.update(post_params)
-        format.html { redirect_to @post, notice: 'Post was successfully updated.' }
-        format.json { render :show, status: :ok, location: @post }
-      else
-        format.html { render :edit }
-        format.json { render json: @post.errors, status: :unprocessable_entity }
-      end
-    end
+    @post.update(post_params)
+    redirect_to @post
   end
 
   # DELETE /posts/1
@@ -71,23 +64,6 @@ end
     end
   end
 
-  def upvote
-    @post = Post.find(params[:id])
-    @post.upvote_by current_user
-    redirect_to :back
-  end
-
-  def downvote
-    @post = Post.find(params[:id])
-    @post.downvote_by current_user
-    redirect_to :back
-  end
-
-  def flykke
-    @post = Post.find(params[:id])
-    @post.liked_by current_user, :vote => 'flykke', :vote_scope => 'flykke'
-    redirect_to :back
-  end
 
   private
     # Use callbacks to share common setup or constraints between actions.

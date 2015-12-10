@@ -1,22 +1,24 @@
 <div class="post">
   <div class='post-upvote'>
-    <%= link_to upvote_path(id: post.id), method: :post do %>
+    <%= link_to upvote_path(id: post.id), method: :put, remote: true do %>
       <div class="post-upvote-arrow">
       </div>
     <% end %>
+
     <% if post.get_upvotes.size > 1 %>
-      <h3 class="post-vote-count"><%= post.get_upvotes.size %> votes</h3>
+      <h3 class="post-vote-count" id="upvote_number"><%= render 'likes/upvote_number', post: post %></h3>
     <% else %>
-      <h3 class="post-vote-count"><%= post.get_upvotes.size %> vote</h3>
+      <h3 class="post-vote-count" id="upvote_number"><%= render 'likes/upvote_number', post: post %></h3>
     <% end %>
-    <%= link_to downvote_path(id: post.id), method: :post do %>
+
+    <%= link_to downvote_path(id: post.id), method: :put do %>
       <div class="post-downvote-arrow">
       </div>
     <% end %>
   </div>
 </div>
 
-<%= button_to "Flykke", flykke_path(id: post.id), class: "btn btn-primary", :method => :post %>
+<%= button_to "Flykke", flykke_path(id: post.id), class: "btn btn-primary", :method => :put %>
 <% if post.get_likes(:vote_scope => 'flykke').size > 1 %>
   <h3 class="post-vote-count"><%= post.get_likes(:vote_scope => 'flykke').size %> flykkes given</h3>
 <% else %>

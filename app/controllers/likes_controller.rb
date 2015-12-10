@@ -6,20 +6,24 @@ class LikesController < ApplicationController
   def upvote
     @post = Post.find(params[:id])
     @post.upvote_by current_user
-    # redirect_to :back
+
+    respond_to do |format|
+      format.html { redirect_to root_path(@post)}
+      format.js
+    end
   end
 
   def downvote
     @post = Post.find(params[:id])
     @post.downvote_by current_user
-    # redirect_to :back
+    redirect_to :back
   end
 
   def flykke
     @post = Post.find(params[:id])
     @post.liked_by current_user, :vote => 'flykke', :vote_scope => 'flykke'
     # @post.create_activity(:flykke, owner: current_user)
-    # redirect_to :back
+    redirect_to :back
   end
 
   # def create

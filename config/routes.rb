@@ -3,7 +3,7 @@ Rails.application.routes.draw do
     resources :comments, only: [:create, :destroy]
   end
 
-  resources :users, only: [:show] do
+  resources :users do
     member do
       get :followers
     end
@@ -18,11 +18,13 @@ Rails.application.routes.draw do
   match :follow,    to: 'follows#create',   as: :follow, via: :post
   match :unfollow,  to: 'follows#destroy',  as: :unfollow, via: :post
 
-  match :flykke,    to: 'likes#flykke',     as: :flykke, via: :post
-  match :upvote,    to: 'likes#upvote',     as: :upvote, via: :post
-  match :downvote,  to: 'likes#downvote',   as: :downvote, via: :post
+  # match :flykke,    to: 'likes#flykke',     as: :flykke, via: :put
+  # match :upvote,    to: 'likes#upvote',     as: :upvote, via: :put
+  # match :downvote,  to: 'likes#downvote',   as: :downvote, via: :put
 
-
+  put 'posts/:id/upvote' => 'likes#upvote', as: :upvote
+  put 'posts/:id/downvote' => 'likes#downvote', as: :downvote
+  put 'posts/:id/flykke' => 'likes#flykke', as: :flykke
 
   # member do
   #     put "upvote",   to: "posts#upvote"

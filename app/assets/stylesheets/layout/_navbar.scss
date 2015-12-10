@@ -1,6 +1,6 @@
 .navbar-wagon {
-  box-shadow: 0 1px 5px 0 rgba(0,0,0,0.07),0 1px 0 0 rgba(0,0,0,0.03);
-  background: white;
+  // box-shadow: 0 1px 5px 0 rgba(0,0,0,0.07),0 1px 0 0 rgba(0,0,0,0.03);
+  background-color: transparent;
   transition: all 0.3s ease;
   &-fixed {
     position: fixed;
@@ -34,7 +34,7 @@
     position: relative;
     &-btn {
       line-height: 40px;
-      color: #E6E6E6;
+      color: $white-blue;
       border: none;
       background: transparent;
       position: absolute;
@@ -62,7 +62,7 @@
     color: #616668;
     font-size: 14px;
     &:hover {
-      color: #da552f;
+      color: $yellow;
       text-decoration: none;
     }
   }
@@ -71,15 +71,15 @@
     padding: 0 20px;
     border-radius: 20em;
     line-height: 40px;
-    background-color: #D23333;
-    color: white;
+    background-color: transparent;
+    color: $white-blue;
     font-size: 14px;
-    border: 2px solid $brand-color;
+    border: 2px solid $white-blue;
 
     &:hover {
-      color: white;
-      background: $brand-color;
-      border-color: darken($brand-color, 10%);
+      color: $brand-color;
+      background: transparent;
+      border-color: darken($brand-color, 0%);
     }
   }
   &-dropdown-menu {
@@ -115,8 +115,10 @@
   hr {
     height: 12px;
     width: 1px;
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: $white-blue;
     margin-left: 10px;
     margin-right: 10px;
   }
 }
+
+

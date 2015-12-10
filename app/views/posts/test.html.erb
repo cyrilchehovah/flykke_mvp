@@ -1,0 +1,65 @@
+<div class="card paper">
+        <details>
+
+
+          <summary style="padding:1em;">
+            <div class="comments-logo">
+                <h3 id="comment_title">
+                  <i class="fa fa-comment"> <%= render 'posts/comment_title', comments: post.comments %></i>
+                </h3>
+            </div>
+          </summary>
+
+
+            <ul class="list-group">
+              <li class="list-group-item" id="comment-<%= comment.id %>">
+                <span class="circle">
+                  <img src="<%= comment.user.picture %>" alt="user">
+                </span>
+                <span class="title">
+                  <%= comment.user.first_name %> <%= comment.user.last_name %> <time> <%= time_ago_in_words(comment.created_at) %> ago </time>
+                  <p><%= comment.body %></p>
+                </span>
+                <ul class="actions" href="#">
+                  <li><a class="reply" href="#">Reply</a></li>
+                </ul>
+              </li>
+            </ul>
+          </details>
+          <ul id="lastComment" class="list-group" id="comment-<%= comment.id %>">
+            <li class="list-group-item">
+              <span class="circle">
+                <img src="<%= comment.user.picture %>" alt="user">
+              </span>
+              <span class="title">
+                <%= comment.user.first_name %> <%= comment.user.last_name %> <time> <%= time_ago_in_words(comment.created_at) %> ago </time>
+                <p><%= comment.body %></p>
+              </span>
+              <% if current_user == comment.user %>
+                <ul class="actions" href="#">
+                  <li class="roff">
+                    <%= link_to "delete", [comment.post, comment], method: :delete, remote: true, data: { confirm: 'Are you sure?' }, class: "delete" %>
+                  </li>
+                </ul>
+              <% end %>
+
+
+                <a class="delete" href="#" title="Delete comment"></a>
+
+            </li>
+          </ul>
+          <form>
+            <fieldset class="form-group">
+              <input type="text"
+              class="form-control"
+              id="exampleInputEmail1"
+              placeholder="Add a comment">
+            </fieldset>
+            <button type="button" class="btn btn-sm btn-success">Post</button>
+            <button type="button" class="btn btn-sm btn-secondary">Cancle</button>
+          </form>
+        </div>
+    </div>
+
+
+

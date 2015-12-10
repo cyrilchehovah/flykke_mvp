@@ -14,6 +14,21 @@
 @import "pages/index";
 @import "vendor/index";
 
+// body {
+//   background-color: $gray-lighter;
+// }
+
 body {
-  background-color: $gray-lighter;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background: #70bg32;
+    background-repeat:no-repeat;
+    background: -webkit-linear-gradient($blue, $white-blue);
+    background: -moz-linear-gradient($blue, $white-blue);
+    background: -ms-linear-gradient($blue, $white-blue);
+    background: -o-linear-gradient($blue, $white-blue);
+    background: linear-gradient($blue, $white-blue);
+    color: white;
 }

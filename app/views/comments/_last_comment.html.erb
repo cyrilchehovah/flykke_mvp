@@ -1,4 +1,4 @@
-<ul class="list-group" id="comment-<%= comment.id %>">
+<ul id="lastComment" class="list-group" id="comment-<%= comment.id %>">
   <li class="list-group-item">
     <span class="circle">
       <img src="<%= comment.user.picture %>" alt="user">
@@ -7,7 +7,6 @@
       <%= comment.user.first_name %> <%= comment.user.last_name %> <time> <%= time_ago_in_words(comment.created_at) %> ago </time>
       <p><%= comment.body %></p>
     </span>
-
     <% if current_user == comment.user %>
       <ul class="actions" href="#">
         <li class="roff">

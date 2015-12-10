@@ -5,13 +5,23 @@ Rails.application.routes.draw do
       put "downvote", to: "posts#downvote"
       put "flykke",   to: "posts#flykke"
     end
-    resources :comments
+    resources :comments, only: [:create, :destroy]
+  end
+
+  resources :users, only: [:show] do
+    member do
+      get :followers
+    end
   end
 
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
+
   root to: 'pages#home'
 
   post 'new_preview', to: 'posts#new_preview', as: 'new_preview'
+
+  match :follow, to: 'follows#create', as: :follow, via: :post
+  match :unfollow, to: 'follows#destroy', as: :unfollow, via: :post
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

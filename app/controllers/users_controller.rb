@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   respond_to :html, :js
 
   def show
-    # @activities = PublicActivity::Activity.where(owner: @user).order(created_at: :desc).paginate(page: params[:page], per_page: 10)
+    @activities = PublicActivity::Activity.where(owner: @user).order(created_at: :desc).paginate(page: params[:page], per_page: 10)
     @user = User.find(params[:id])
   end
 
@@ -20,12 +20,12 @@ class UsersController < ApplicationController
     end
   end
 
-  def desactivate
+  def deactivate
   end
 
-  # def friends
-  #   @friends = @user.following_users.paginate(page: params[:page])
-  # end
+  def friends
+    @friends = @user.following_users.paginate(page: params[:page])
+  end
 
   def followers
     @followers = @user.user_followers.paginate(page: params[:page])

@@ -11,7 +11,12 @@ Rails.application.routes.draw do
 
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
 
-  root to: 'pages#home'
+  authenticated :user do
+    root to: 'home#index', as: 'home'
+  end
+  unauthenticated :user do
+    root 'home#front'
+  end
 
   post 'new_preview', to: 'posts#new_preview', as: 'new_preview'
 

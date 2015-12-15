@@ -6,6 +6,7 @@ class LikesController < ApplicationController
   def upvote
     @post = Post.find(params[:id])
     @post.upvote_by current_user
+    # @post.create_activity(:upvote, owner: current_user)
 
     respond_to do |format|
       format.html { redirect_to root_path(@post)}
@@ -17,12 +18,15 @@ class LikesController < ApplicationController
     @post = Post.find(params[:id])
     @post.downvote_by current_user
     redirect_to :back
+
+    @activity = PublicActivity::Activity.find_by(trackable_id: (params[:id]), trackable_type: controller_path.classify)
+    @activity.destroy if activity.present?
   end
 
   def flykke
     @post = Post.find(params[:id])
     @post.liked_by current_user, :vote => 'flykke', :vote_scope => 'flykke'
-    # @post.create_activity(:flykke, owner: current_user)
+    @post.create_activity(:flykke, owner: current_user)
     redirect_to :back
   end
 

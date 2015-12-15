@@ -1,6 +1,10 @@
 class Comment < ActiveRecord::Base
+  include PublicActivity::Model
+  tracked only: [:create], owner: Proc.new{ |controller, model| model.user }
+
   belongs_to :user
   belongs_to :post
+  belongs_to :commentable, :polymorphic => true, :counter_cache => true
 
   default_scope -> { order('created_at DESC') }
 
@@ -13,8 +17,7 @@ class Comment < ActiveRecord::Base
 end
 
 
-  # include PublicActivity::Model
-  # tracked only: [:create], owner: Proc.new{ |controller, model| model.user }
+
 
  # auto_html_for :comment do
  #    html_escape

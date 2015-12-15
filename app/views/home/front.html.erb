@@ -1,0 +1,22 @@
+<div class="row">
+  <div id="newsfeed" class="col-lg-6">
+    <h1 class="text-center"> Welcome on Flykke! </h1>
+    <div id="activities">
+      <% if @activities.empty? %>
+        <div class="well">
+          <%= render('shared/no_resource', resources: 'Activities') %>
+        </div>
+      <% else %>
+        <%= render_activities(@activities, layout: '/shared/activity') %>
+      <% end %>
+    </div>
+    <%= render 'posts/listing', posts: @posts %>
+    <%= render 'shared/paginate', resources: @activities %>
+  </div>
+</div>
+
+
+
+
+
+

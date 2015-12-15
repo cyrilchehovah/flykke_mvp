@@ -1,7 +1,8 @@
 require 'open-uri'
 
 class Post < ActiveRecord::Base
-
+  include PublicActivity::Model
+  tracked only: [:create, :flykke], owner: Proc.new{ |controller, model| model.user }
   # include Shared::Callbacks
   acts_as_votable
 
@@ -27,8 +28,7 @@ end
   # counter_culture :user
 
 
-  # include PublicActivity::Model
-  # tracked only: [:create, :like], owner: Proc.new{ |controller, model| model.user }
+
 
 
 

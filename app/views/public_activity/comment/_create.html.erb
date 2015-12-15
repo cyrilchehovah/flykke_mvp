@@ -3,12 +3,16 @@
     <div class="info">
       <%= render 'shared/avatar', user: activity.owner %>
       <h4 class="name"><%= activity.owner.first_name %> <%= activity.owner.last_name %></h4>
-      <span class="action">commented on a <%= link_to 'post', activity.trackable.commentable %></span>
+      <span class="action">commented on this creation</span>
       <!-- activity.trackable.commentable renvoie nil => il faut trouver pourquoi et le régler!! -->
     </div>
     <div class="content">
+      <%= render 'posts/post', post: activity.trackable.post %>
       <h4><small><%= activity.trackable.body %></small></h4>
     </div>
     <%= render 'shared/created_at', activity: activity %>
     <% end %>
 </div>
+
+
+

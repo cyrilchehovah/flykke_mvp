@@ -1,3 +1,6 @@
+<!-- FORM FOR POST CREATION -->
+
+<!-- to review : connect the old form for below whith errors with the fields of the new form -->
 <%= form_for(@post) do |f| %>
   <% if @post.errors.any? %>
     <div id="error_explanation">
@@ -12,6 +15,7 @@
   <% end %>
 <% end %>
 
+<!-- choose a category for the post -->
 <div class="row">
   <div class= "text-center" >
     <h4 class="text-center">Choose the type of content you create</h4>
@@ -25,6 +29,7 @@
 
 <hr>
 
+<!-- url to fill, then a preview of the post will append on the result div -->
 <div class="row">
   <div class="text-center col-xs-6 col-md-offset-3">
     <h4>Enter the url of your creation</h4>
@@ -42,6 +47,7 @@
 
 <hr>
 
+<!-- tags list for the post -->
 <div class="row">
   <div class="text-center col-xs-6 col-md-offset-3">
     <h4>Choose 3 to 5 interests</h4>
@@ -58,7 +64,7 @@
 
 <br>
 
-
+<!-- fill the hidden form for the post creation with js -->
 <div class="js-post-hidden-form">
   <%= render 'hidden_form', post: @post %>
 </div>

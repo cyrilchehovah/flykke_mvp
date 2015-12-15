@@ -1,3 +1,5 @@
+<!-- HOMEPAGE WHEN SIGNED IN -->
+
 <div class="row">
   <div id="dashboard" class="col-md-2">
     <%= render 'shared/user_info' %>
@@ -22,8 +24,10 @@
           <%= render('shared/no_resource', resources: 'Activities') %>
         </div>
       <% else %>
+        <% @posts.each do |post| %>
+          <%= render 'posts/post', post: post %>
+        <% end %>
         <%= render_activities(@activities, layout: '/shared/activity') %>
-        <%= render 'posts/listing', posts: @posts %>
         <%= render 'shared/paginate', resources: @activities %>
       <% end %>
     </div>

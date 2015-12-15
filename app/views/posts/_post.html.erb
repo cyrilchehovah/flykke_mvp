@@ -1,3 +1,4 @@
+<!--  THE FLYKKE'S POST STRUCTURE  -->
 <div class="media col-xs-8 col-md-offset-2">
   <div class="media-body">
     <%= link_to post.url, :target => "_blank", class: "media-link" do %>
@@ -24,7 +25,7 @@
     <% end %>
     <section class="media-section text-center">
       <img src="<%= post.user.picture %>" alt="book-cover" class="media media-profile-picture result-img img-responsive">
-      <small><%= time_ago_in_words(post.created_at) %> ago - by
+      <small> <i class="fa fa-clock-o"></i> <%= time_ago_in_words(post.created_at) %> ago - by
         <%= link_to user_path(post.user) do %>
           <%= post.user.first_name %> <%= post.user.last_name %>
         <% end %>

@@ -1,13 +1,14 @@
 <% if activity.trackable %>
-  <div class="activity-like">
+  <div class="activity-flykke">
     <div class="info">
       <%= render 'shared/avatar', user: activity.owner %>
       <h4 class="name"><%= activity.owner.first_name %> <%= activity.owner.last_name %></h4>
-      <span class="action">flykked a <%= link_to 'post', activity.trackable %></span>
+      <span class="action">flykked this post %></span>
+      <%= render 'shared/created_at', activity: activity %>
     </div>
     <div class="content">
+      <%= render 'posts/post', post: activity.trackable %>
       <h4><small><%= activity.trackable %></small></h4>
     </div>
-    <%= render 'shared/created_at', activity: activity %>
   </div>
 <% end %>

@@ -10,6 +10,7 @@ class HomeController < ApplicationController
   end
 
   def front
+    @posts = Post.all
     @activities = PublicActivity::Activity.order(created_at: :desc).paginate(page: params[:page], per_page: 10)
   end
 

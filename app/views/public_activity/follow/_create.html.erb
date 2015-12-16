@@ -6,7 +6,7 @@
   </div>
   <div class="followee">
     <%= render 'shared/avatar', user: activity.trackable.followable %>
-    <h4 class="name"><%= activity.trackable.followable.first_name %></h4>
+    <h4 class="name"><%= activity.trackable.followable.first_name %> <%= activity.trackable.followable.last_name %></h4>
+    <%= render 'shared/created_at', activity: activity %>
   </div>
-  <%= render 'shared/created_at', activity: activity %>
 </div>

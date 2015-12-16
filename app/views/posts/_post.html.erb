@@ -24,7 +24,7 @@
       <%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %>
     <% end %>
     <section class="media-section text-center">
-      <img src="<%= post.user.picture %>" alt="book-cover" class="media media-profile-picture result-img img-responsive">
+      <img src="<%= post.user.picture %>" alt="user-picture" class="media media-profile-picture result-img img-responsive">
       <small> <i class="fa fa-clock-o"></i> <%= time_ago_in_words(post.created_at) %> ago - by
         <%= link_to user_path(post.user) do %>
           <%= post.user.first_name %> <%= post.user.last_name %>

@@ -1,0 +1,31 @@
+<!-- HOMEPAGE WHEN VISITOR -->
+
+<div class="row">
+  <div id="dashboard" class="col-md-2">
+    <%= render 'shared/user_info' %>
+    <%= render 'shared/links' %>
+  </div>
+  <div id="newsfeed" class="col-md-10">
+    <h1 class="text-center"> Welcome on Flykke! </h1>
+    <div class="row">
+      <div class= "text-center" >
+        <h4 class="text-center">Choose a category of content to browse</h4><br>
+        <button type="button" class="navbar-wagon-button btn post-category" id="charity-cat">All</button>
+        <button type="button" class="navbar-wagon-button btn post-category" id="charity-cat"><i class="fa fa-globe"></i>  Charity</button>
+        <button type="button" class="navbar-wagon-button btn post-category" id="music-cat"><i class="fa fa-music"></i>  Music</button>
+        <button type="button" class="navbar-wagon-button btn post-category" id="news-cat"><i class="fa fa-newspaper-o"></i>  News</button>
+        <button type="button" class="navbar-wagon-button btn post-category" id="photos-cat"><i class="fa fa-camera"></i>  Photos</button>
+        <button type="button" class="navbar-wagon-button btn post-category" id="videos-cat"><i class="fa fa-video-camera"></i>  Videos</button>
+      </div>
+    </div>
+    <div id="activities">
+      <% @posts.each do |post| %>
+        <%= render 'posts/post', post: post %>
+        <%= render 'shared/paginate', resources: post %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+
+

@@ -10,6 +10,8 @@ gem 'carrierwave'
 gem 'metainspector'
 gem 'acts_as_votable', '~> 0.10.0'
 gem 'acts_as_follower'
+gem 'public_activity'
+gem 'will_paginate', '~> 3.0.6'
 
 gem 'sass-rails', '~> 5.0'
 gem 'jquery-rails'

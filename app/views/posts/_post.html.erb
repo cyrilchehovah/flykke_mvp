@@ -1,0 +1,66 @@
+<!--  THE FLYKKE'S POST STRUCTURE  -->
+<div class="media col-xs-8 col-md-offset-2">
+  <div class="media-body">
+    <%= link_to post.url, :target => "_blank", class: "media-link" do %>
+      <section class="media-section">
+         <h2><%= post.title %> <span class="label label-primary pull-right"><%= post.category %></h2></span>
+      </section>
+      <section class="media-section">
+        <img src="<%= post.image %>" alt="post-image" class="post-img img-responsive">
+      </section>
+      <section class="media-section">
+        <h3><%= post.description %></h3>
+        <% if post.site_name? %>
+          <h4><%= post.site_name %></h4>
+        <% else %>
+          <h4><%= post.url %></h4>
+        <% end %>
+      </section>
+    <% end %>
+  </div>
+
+  <div class="media-aside">
+    <% if current_user == post.user %>
+      <%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %>
+    <% end %>
+    <section class="media-section text-center">
+      <img src="<%= post.user.picture %>" alt="book-cover" class="media media-profile-picture result-img img-responsive">
+      <small> <i class="fa fa-clock-o"></i> <%= time_ago_in_words(post.created_at) %> ago - by
+        <%= link_to user_path(post.user) do %>
+          <%= post.user.first_name %> <%= post.user.last_name %>
+        <% end %>
+      </small>
+      <%= render 'follows/form', user: post.user %>
+    </section>
+    <section class="media-section">
+      <h2>Share</h2>
+      ...
+    </section>
+    <section class="media-section">
+      <%= render 'likes/form', post: post %>
+    </section>
+  </div>
+</div>
+
+<div class="card col-xs-8 col-md-offset-2">
+  <div class="card paper">
+    <details>
+      <summary style="padding:1em;">
+        <div class="comments-logo">
+            <h4 id="comment_title">
+              <i class="fa fa-comment"><%= render 'posts/comment_title', comments: post.comments %></i>
+            </h4>
+        </div>
+      </summary>
+
+      <div id="comments">
+        <% post.comments.each do |comment| %>
+          <%= render 'comments/comment', comment: comment %>
+        <% end %>
+      </div>
+      <div class="form">
+        <%= render 'comments/form', post: post, comment: Comment.new %>
+      </div>
+    </details>
+  </div>
+</div>

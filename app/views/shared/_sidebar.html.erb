@@ -2,8 +2,10 @@
 
   <!-- USER PROFILE -->
   <div class="user-profile ">
-    <%= image_tag (current_user.picture ? current_user.picture : current_user.picture.url(:thumb)), class: "avatar", alt: "user-picture" %>
-    <div class="username"><%= @user.first_name %> <%= @user.last_name %></div>
+    <%= image_tag (@user.picture ? @user.picture : @user.picture.url(:thumb)), class: "avatar", alt: "user-picture" %>
+    <%= link_to user_path(current_user), class: "username" do %>
+      <%= @user.first_name %> <%= @user.last_name %>
+    <% end %>
     <div class="bio">
       <!-- Senior UI Designer -->
     </div>

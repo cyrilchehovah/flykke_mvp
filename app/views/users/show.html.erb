@@ -30,3 +30,64 @@
     <% end %>
   </div>
 </div>
+
+<div class="user-profile ">
+  <%= image_tag (@user.picture ? @user.picture : @user.picture.url(:thumb)), class: "avatar", alt: "user-picture" %>
+  <%= @user.first_name %>
+  <%= @user.last_name %>
+  <br>
+  <%= render 'follows/form', user: @user %>
+  <br>
+  <div>
+    <!-- flykkes given  -->
+    <%= link_to root_path, class: "text-center" do %>
+      <h4><%= @user.find_liked_items(:vote_scope => 'flykke').size %></h4>
+      <i class="fa fa-hand-spock-o "><br>Flykkes given</i>
+    <% end %>
+  </div>
+
+  <div>
+    <!-- flykkes received  -->
+    <%= link_to root_path, class: "text-center" do %>
+      <h4><%= @user.number_of_flykkes_received %></h4>
+      <i class="fa fa-hand-spock-o "><br>Flykkes received</i>
+    <% end %>
+  </div>
+
+  <div>
+    <!-- see number of people that user follows  -->
+    <%= link_to root_path, class: "text-center" do %>
+      <h4><%= @user.follow_count %></h4>Following
+    <% end %>
+  </div>
+
+  <div>
+    <!-- see number of people that follow user  -->
+    <%= link_to root_path, class: "text-center" do %>
+      <h4><%= @user.all_following.size %></h4> Followers
+    <% end %>
+  </div>
+
+  <!-- see list of people you follow  -->
+  <%= @user.all_following %>
+
+  <!-- see list of people who follow you  -->
+  <%= @user.all_follows %>
+</div>
+
+<% raise %>
+<!-- user info card :
+see infos (picture, name, description, etc.)
+possibility to follow / unfollow
+see followers / following people
+see number of flykkes given / received
+see social links of the user
+
+Personal catalog
+browse by category / list
+see posts flykked by user (if post not flykked be current_user, possibility to flykke them)
+@user.find_liked_items(:vote_scope => 'flykke')
+
+Catalog of user's creations
+browse by category  -->
+

@@ -1,0 +1,15 @@
+.category-tabs li {
+  display: table-cell;
+  .active {
+    color: $yellow;
+    box-shadow: none;
+    border: 2px solid $yellow;
+  }
+}
+
+.category-tabs li a .active {
+  color: $yellow;
+  box-shadow: none;
+  border: 2px solid $yellow;
+  touch-action: none;
+}

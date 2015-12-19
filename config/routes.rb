@@ -3,13 +3,14 @@ Rails.application.routes.draw do
     resources :comments, only: [:create, :destroy]
   end
 
-  resources :users do
+  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
+
+  resources :users, :path_prefix => 'my' do
     member do
       get :followers
     end
   end
 
-  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
 
   authenticated :user do
     root to: 'home#index', as: 'home'

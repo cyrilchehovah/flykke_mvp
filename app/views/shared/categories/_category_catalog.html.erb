@@ -1,0 +1,114 @@
+<div class= "text-center">
+  <h4 class="text-center">Choose a category of content to browse</h4><br>
+
+  <ul class="category-tabs">
+    <li>
+      <%= link_to "All", user_path(user, :anchor => "cat-catalog-tab1"), class: "navbar-wagon-button btn post-category", id:"all-cat" %>
+    </li>
+    <li>
+      <%= link_to user_path(user, :anchor => "cat-catalog-tab2"), class: "navbar-wagon-button btn post-category", id:"charity-cat" do %>
+        <i class="fa fa-globe"> Charity</i>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to user_path(user, :anchor => "cat-catalog-tab3"), class: "navbar-wagon-button btn post-category", id:"music-cat" do %>
+        <i class="fa fa-music"> Music</i>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to user_path(user, :anchor => "cat-catalog-tab4"), class: "navbar-wagon-button btn post-category", id:"news-cat" do %>
+        <i class="fa fa-newspaper-o"> News</i>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to user_path(user, :anchor => "cat-catalog-tab5"), class: "navbar-wagon-button btn post-category", id:"photos-cat" do %>
+        <i class="fa fa-camera"> Photos</i>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to user_path(user, :anchor => "cat-catalog-tab6"), class: "navbar-wagon-button btn post-category", id:"videos-cat" do %>
+        <i class="fa fa-video-camera"> Videos</i>
+      <% end %>
+    </li>
+  </ul>
+</div>
+
+<div id="cat-catalog-tab1">
+  <% @user.find_liked_items(:vote_scope => 'flykke').each do |post| %>
+    <%= render 'posts/post', post: post %>
+  <% end %>
+</div>
+
+<div id="cat-catalog-tab2">
+  <% @user.find_liked_items(:vote_scope => 'flykke').select { |m| m.category == 'Charity' }.each do |post| %>
+    <%= render 'posts/post', post: post %>
+  <% end %>
+</div>
+
+<div id="cat-catalog-tab3">
+  <% @user.find_liked_items(:vote_scope => 'flykke').select { |m| m.category == 'Music' }.each do |post| %>
+    <%= render 'posts/post', post: post %>
+  <% end %>
+</div>
+
+<div id="cat-catalog-tab4">
+  <% @user.find_liked_items(:vote_scope => 'flykke').select { |m| m.category == 'News' }.each do |post| %>
+    <%= render 'posts/post', post: post %>
+  <% end %>
+</div>
+
+<div id="cat-catalog-tab5">
+  <% @user.find_liked_items(:vote_scope => 'flykke').select { |m| m.category == 'Photos' }.each do |post| %>
+    <%= render 'posts/post', post: post %>
+  <% end %>
+</div>
+
+<div id="cat-catalog-tab6">
+  <% @user.find_liked_items(:vote_scope => 'flykke').select { |m| m.category == 'Videos' }.each do |post| %>
+    <%= render 'posts/post', post: post %>
+  <% end %>
+</div>
+
+
+
+<!-- ---------------------------------------------------------------------------------------- -->
+<!-- JAVASCRIPT FOR TABS  -->
+<%= content_for :after_js do %>
+  <%= javascript_tag do %>
+    $('ul.category-tabs').each(function(){
+      // For each set of tabs, we want to keep track of
+      // which tab is active and its associated content
+      var $active, $content, $links = $(this).find('a');
+
+      // If the location.hash matches one of the links, use that as the active tab.
+      // If no match is found, use the first link as the initial active tab.
+      $active = $($links.filter('[href="'+location.hash+'"]')[0] || $links[0]);
+      $active.addClass('active');
+
+      $content = $($active[0].hash);
+
+      // Hide the remaining content
+      $links.not($active).each(function () {
+        $(this.hash).hide();
+      });
+
+      // Bind the click event handler
+      $(this).on('click', 'a', function(e){
+        // Make the old tab inactive.
+        $active.removeClass('active');
+        $content.hide();
+
+        // Update the variables with the new link and content
+        $active = $(this);
+        $content = $(this.hash);
+
+        // Make the tab active.
+        $active.addClass('active');
+        $content.show();
+
+        // Prevent the anchor's default click action
+        e.preventDefault();
+      });
+    });
+  <% end %>
+<% end %>

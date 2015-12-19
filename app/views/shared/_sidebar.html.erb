@@ -2,9 +2,9 @@
 
   <!-- USER PROFILE -->
   <div class="user-profile ">
-    <%= image_tag (@user.picture ? @user.picture : @user.picture.url(:thumb)), class: "avatar", alt: "user-picture" %>
+    <%= image_tag (current_user.picture ? current_user.picture : current_user.picture.url(:thumb)), class: "avatar", alt: "user-picture" %>
     <%= link_to user_path(current_user), class: "username" do %>
-      <%= @user.first_name %> <%= @user.last_name %>
+      <%= current_user.first_name %> <%= current_user.last_name %>
     <% end %>
     <div class="bio">
       <!-- Senior UI Designer -->
@@ -23,7 +23,6 @@
   <ul class="sidebar-nav">
       <li><%= link_to '<i class="fa fa-connectdevelop"></i> &nbsp;&nbsp;DISCOVER'.html_safe, root_path %></li>
       <li><%= link_to '<i class="fa fa-book"></i> &nbsp;&nbsp;CATALOG'.html_safe, user_path(current_user) %></li>
-      <li><%= link_to '<i class="fa fa-user"></i> &nbsp;&nbsp;PROFILE'.html_safe, edit_user_path(current_user) %></li>
       <li><%= link_to '<i class="fa fa-pie-chart"></i> &nbsp;&nbsp;DASHBOARD'.html_safe, root_path %></li>
       <li><%= link_to '<i class="fa fa-power-off"></i> &nbsp;&nbsp;LOG OUT'.html_safe, destroy_user_session_path, method: :delete %></li>
   </ul>

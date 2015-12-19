@@ -1,35 +1,9 @@
 <!-- HOMEPAGE WHEN SIGNED IN -->
 
 <div class="row">
-  <div id="newsfeed" class="col-md-10">
-    <div class="text-center">
-      <h1 class="text-center"> Welcome on Flykke! </h1>
-      <div class="row">
-        <div class= "text-center" >
-          <h4 class="text-center">Choose a category of content to browse</h4><br>
-          <button type="button" class="navbar-wagon-button btn post-category" id="all-cat">All</button>
-          <button type="button" class="navbar-wagon-button btn post-category" id="charity-cat"><i class="fa fa-globe"></i>  Charity</button>
-          <button type="button" class="navbar-wagon-button btn post-category" id="music-cat"><i class="fa fa-music"></i>  Music</button>
-          <button type="button" class="navbar-wagon-button btn post-category" id="news-cat"><i class="fa fa-newspaper-o"></i>  News</button>
-          <button type="button" class="navbar-wagon-button btn post-category" id="photos-cat"><i class="fa fa-camera"></i>  Photos</button>
-          <button type="button" class="navbar-wagon-button btn post-category" id="videos-cat"><i class="fa fa-video-camera"></i>  Videos</button>
-        </div>
-      </div>
-    </div>
-
-    <div id="activities">
-      <% if @activities.empty? %>
-        <div class="well">
-          <%= render('shared/no_resource', resources: 'Activities') %>
-        </div>
-      <% else %>
-        <% @posts.each do |post| %>
-          <%= render 'posts/post', post: post %>
-        <% end %>
-        <%= render_activities(@activities, layout: '/shared/activity') %>
-        <%= render 'shared/paginate', resources: @activities %>
-      <% end %>
-    </div>
+  <div id="newsfeed" class="col-md-12 no-padding">
+    <h1 class="text-center"> Welcome on Flykke! </h1>
+    <%= render 'shared/categories/category_newsfeed', posts: @posts %>
   </div>
 </div>
 

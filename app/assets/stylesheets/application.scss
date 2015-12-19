@@ -18,17 +18,31 @@
 //   background-color: $gray-lighter;
 // }
 
-body {
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-    background: #70bg32;
-    background-repeat:no-repeat;
-    background: -webkit-linear-gradient($blue, $white-blue);
-    background: -moz-linear-gradient($blue, $white-blue);
-    background: -ms-linear-gradient($blue, $white-blue);
-    background: -o-linear-gradient($blue, $white-blue);
-    background: linear-gradient($blue, $white-blue);
-    color: white;
+// body {
+//     -webkit-background-size: cover;
+//     -moz-background-size: cover;
+//     -o-background-size: cover;
+//     background-size: cover;
+//     background: #70bg32;
+//     background-repeat:no-repeat;
+//     background: -webkit-linear-gradient($blue, $white-blue);
+//     background: -moz-linear-gradient($blue, $white-blue);
+//     background: -ms-linear-gradient($blue, $white-blue);
+//     background: -o-linear-gradient($blue, $white-blue);
+//     background: linear-gradient($blue, $white-blue);
+//     color: white;
+// }
+
+/* Header Image Background - Change the URL below to your image path (example: ../images/background.jpg) */
+
+#page-content-wrapper {
+  background: linear-gradient($blue, $white-blue) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
+}
+
+.page-content {
+  margin-top: 70px;
 }

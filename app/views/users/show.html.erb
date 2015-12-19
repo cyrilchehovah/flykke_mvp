@@ -1,81 +1,137 @@
-<%= render 'shared/cover', user: @user %>
-<br>
-<div id="user-<%= @user.id %>" class="row">
-  <div class="col-lg-3">
-  <%= render 'shared/user_info' %>
-  </div>
-  <div class="col-lg-6">
-  <!--   <div id="activities">
-      <if @activities.empty? %>
-        <div class="well">
-          < render('shared/no_resource', resources: 'Activities') %>
-        </div>
-      <else %>
-        < render_activities(@activities, layout: '/shared/activity') %>
-      < end %>
-    </div> -->
-    <!-- <render 'shared/paginate', resources: @activities %> -->
-  </div>
-  <div class="col-lg-3">
-    <% if current_user == @user %>
-      <div class="well">
-        <ul class="nav nav-pills nav-stacked">
-          <li><%= link_to 'Edit Profile', edit_user_path(@user) %></li>
-          <li><%= link_to 'Change password', edit_user_registration_path %></li>
-<!--           <li><link_to 'Friends', friends_user_path(@user) %></li> -->
-          <li><%= link_to 'Followers', followers_user_path(@user) %></li>
-    <!--       <li><link_to 'Deactivate', deactivate_user_path(@user) %></li> -->
+<div class="container-fluid">
+  <div class="row">
+    <!--     Topsection : cover -->
+    <div class="col-lg-12 profile-topsection-cover no-padding">
+      <%= render 'shared/cover', user: @user %>
+      <%= image_tag (@user.picture ? @user.picture : @user.picture.url(:thumb)), class: "avatar-info", alt: "user-picture" %>
+      <div class="username-info">
+        <h3> <%= @user.first_name %> <%= @user.last_name %></h3>
+      </div>
+      <div class="edit-user-info">
+        <%= render 'follows/form', user: @user %>
+        <% if is_current_user?(@user) %>
+          <%= link_to edit_user_path(current_user), class: "btn btn-default" do %>
+            <i class="fa fa-user"> Update profile</i>
+          <% end %>
+          <%= link_to edit_user_registration_path, class: "btn btn-default" do %>
+            <i class="fa fa-cog"> Change your password</i>
+          <% end %>
+        <% end %>
+      </div>
+      <div class="user-info-nav">
+        <ul class="nav nav-pills pull-right user-info-nav-menu tabs">
+          <li role="presentation">
+            <%= link_to user_path(@user, :anchor => "tab1") do %>
+              Personnal catalog
+              <span class="badge"><%= @user.find_liked_items(:vote_scope => 'flykke').size %></span>
+            <% end %>
+          </li>
+          <li role="presentation">
+            <%= link_to user_path(@user, :anchor => "tab2") do %>
+              Creations
+              <span class="badge"><%= @user.posts.size %></span>
+            <% end %>
+          </li>
         </ul>
       </div>
-    <% end %>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="user-info col-lg-3">
+      <br>
+      <ul class="data-info">
+        <li>
+          <!-- flykkes given  -->
+          <%= link_to root_path, class: "text-center" do %>
+            <h4><%= @user.find_liked_items(:vote_scope => 'flykke').size %></h4>
+            <i class="fa fa-hand-spock-o "><br>Flykkes given</i>
+          <% end %>
+        </li>
+        <li>
+          <!-- flykkes received  -->
+          <%= link_to root_path, class: "text-center" do %>
+            <h4><%= @user.number_of_flykkes_received %></h4>
+            <i class="fa fa-hand-spock-o "><br>Flykkes received</i>
+          <% end %>
+        </li>
+        <li>
+          <!-- see number of people that user follows  -->
+          <%= link_to root_path, class: "text-center" do %>
+            <h4><%= @user.follow_count %></h4>Following
+          <% end %>
+        </li>
+        <li>
+          <!-- see number of people that follow user  -->
+          <%= link_to root_path, class: "text-center" do %>
+            <h4><%= @user.all_following.size %></h4> Followers
+          <% end %>
+        </li>
+      </ul>
+    </div>
+
+    <div class="col-lg-8 img-user-info no-padding">
+      <div id="tab1">
+        <%= render 'shared/categories/category_catalog', user: @user %>
+      </div>
+
+
+      <div id="tab2">
+        <%= render 'shared/categories/category_creations', user: @user %>
+      </div>
+
+    </div>
+
   </div>
 </div>
+<!--
+    $('.post-category').removeClass('btn-primary');
+    $(this).addClass('btn-primary'); -->
 
-<div class="user-profile ">
-  <%= image_tag (@user.picture ? @user.picture : @user.picture.url(:thumb)), class: "avatar", alt: "user-picture" %>
-  <%= @user.first_name %>
-  <%= @user.last_name %>
-  <br>
-  <%= render 'follows/form', user: @user %>
-  <br>
-  <div>
-    <!-- flykkes given  -->
-    <%= link_to root_path, class: "text-center" do %>
-      <h4><%= @user.find_liked_items(:vote_scope => 'flykke').size %></h4>
-      <i class="fa fa-hand-spock-o "><br>Flykkes given</i>
-    <% end %>
-  </div>
+<!-- ---------------------------------------------------------------------------------------- -->
+<!-- JAVASCRIPT FOR TABS  -->
+<%= content_for :after_js do %>
+  <%= javascript_tag do %>
+    $('ul.tabs').each(function(){
+      // For each set of tabs, we want to keep track of
+      // which tab is active and its associated content
+      var $active, $content, $links = $(this).find('a');
 
-  <div>
-    <!-- flykkes received  -->
-    <%= link_to root_path, class: "text-center" do %>
-      <h4><%= @user.number_of_flykkes_received %></h4>
-      <i class="fa fa-hand-spock-o "><br>Flykkes received</i>
-    <% end %>
-  </div>
+      // If the location.hash matches one of the links, use that as the active tab.
+      // If no match is found, use the first link as the initial active tab.
+      $active = $($links.filter('[href="'+location.hash+'"]')[0] || $links[0]);
+      $active.addClass('active');
 
-  <div>
-    <!-- see number of people that user follows  -->
-    <%= link_to root_path, class: "text-center" do %>
-      <h4><%= @user.follow_count %></h4>Following
-    <% end %>
-  </div>
+      $content = $($active[0].hash);
 
-  <div>
-    <!-- see number of people that follow user  -->
-    <%= link_to root_path, class: "text-center" do %>
-      <h4><%= @user.all_following.size %></h4> Followers
-    <% end %>
-  </div>
+      // Hide the remaining content
+      $links.not($active).each(function () {
+        $(this.hash).hide();
+      });
 
-  <!-- see list of people you follow  -->
-  <%= @user.all_following %>
+      // Bind the click event handler
+      $(this).on('click', 'a', function(e){
+        // Make the old tab inactive.
+        $active.removeClass('active');
+        $content.hide();
 
-  <!-- see list of people who follow you  -->
-  <%= @user.all_follows %>
-</div>
+        // Update the variables with the new link and content
+        $active = $(this);
+        $content = $(this.hash);
 
-<% raise %>
+        // Make the tab active.
+        $active.addClass('active');
+        $content.show();
+
+        // Prevent the anchor's default click action
+        e.preventDefault();
+      });
+    });
+  <% end %>
+<% end %>
+
+
 <!-- user info card :
 see infos (picture, name, description, etc.)
 possibility to follow / unfollow
@@ -90,4 +146,11 @@ see posts flykked by user (if post not flykked be current_user, possibility to f
 
 Catalog of user's creations
 browse by category  -->
+
+              <!-- see list of people you follow  -->
+              <!-- @user.all_following -->
+
+              <!-- see list of people who follow you  -->
+        <!--       @user.all_follows  -->
+
 

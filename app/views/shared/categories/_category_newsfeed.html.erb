@@ -1,0 +1,162 @@
+<div class= "text-center">
+  <h4 class="text-center">Choose a category of content to browse</h4><br>
+
+  <ul class="category-tabs">
+    <li>
+      <%= link_to "All", home_path(:anchor => "cat-newsfeed-tab1"), class: "navbar-wagon-button btn post-category", id:"all-cat" %>
+    </li>
+    <li>
+      <%= link_to home_path(:anchor => "cat-newsfeed-tab2"), class: "navbar-wagon-button btn post-category", id:"charity-cat" do %>
+        <i class="fa fa-globe"> Charity</i>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to home_path(:anchor => "cat-newsfeed-tab3"), class: "navbar-wagon-button btn post-category", id:"music-cat" do %>
+        <i class="fa fa-music"> Music</i>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to home_path(:anchor => "cat-newsfeed-tab4"), class: "navbar-wagon-button btn post-category", id:"news-cat" do %>
+        <i class="fa fa-newspaper-o"> News</i>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to home_path(:anchor => "cat-newsfeed-tab5"), class: "navbar-wagon-button btn post-category", id:"photos-cat" do %>
+        <i class="fa fa-camera"> Photos</i>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to home_path(:anchor => "cat-newsfeed-tab6"), class: "navbar-wagon-button btn post-category", id:"videos-cat" do %>
+        <i class="fa fa-video-camera"> Videos</i>
+      <% end %>
+    </li>
+  </ul>
+</div>
+
+<!-- Attention : les id activities ont été enlevé des 6tabs suivantes!  -->
+<div id="cat-newsfeed-tab1">
+  <% if @activities.empty? %>
+    <div class="well">
+      <%= render('shared/no_resource', resources: 'Activities') %>
+    </div>
+  <% else %>
+    <% posts.each do |post| %>
+      <%= render 'posts/post', post: post %>
+    <% end %>
+<!--         render_activities(@activities, layout: '/shared/activity')  -->
+    <%= render 'shared/paginate', resources: @activities %>
+  <% end %>
+</div>
+
+<div id="cat-newsfeed-tab2">
+    <% if @activities.empty? %>
+      <div class="well">
+        <%= render('shared/no_resource', resources: 'Activities') %>
+      </div>
+    <% else %>
+      <% posts.where(category: 'Charity').each do |post| %>
+        <%= render 'posts/post', post: post %>
+      <% end %>
+  <!--         render_activities(@activities, layout: '/shared/activity')  -->
+      <%= render 'shared/paginate', resources: @activities %>
+    <% end %>
+</div>
+
+<div id="cat-newsfeed-tab3">
+  <% if @activities.empty? %>
+    <div class="well">
+      <%= render('shared/no_resource', resources: 'Activities') %>
+    </div>
+  <% else %>
+    <% posts.where(category: 'Music').each do |post| %>
+      <%= render 'posts/post', post: post %>
+    <% end %>
+<!--         render_activities(@activities, layout: '/shared/activity')  -->
+    <%= render 'shared/paginate', resources: @activities %>
+  <% end %>
+</div>
+
+<div id="cat-newsfeed-tab4">
+  <% if @activities.empty? %>
+    <div class="well">
+      <%= render('shared/no_resource', resources: 'Activities') %>
+    </div>
+  <% else %>
+    <% posts.where(category: 'News').each do |post| %>
+       <%= render 'posts/post', post: post %>
+    <% end %>
+<!--         render_activities(@activities, layout: '/shared/activity')  -->
+    <%= render 'shared/paginate', resources: @activities %>
+  <% end %>
+</div>
+
+<div id="cat-newsfeed-tab5">
+  <% if @activities.empty? %>
+    <div class="well">
+      <%= render('shared/no_resource', resources: 'Activities') %>
+    </div>
+  <% else %>
+    <% posts.where(category: 'Photos').each do |post| %>
+      <%= render 'posts/post', post: post %>
+    <% end %>
+<!--         render_activities(@activities, layout: '/shared/activity')  -->
+    <%= render 'shared/paginate', resources: @activities %>
+  <% end %>
+</div>
+
+<div id="cat-newsfeed-tab6">
+  <% if @activities.empty? %>
+    <div class="well">
+      <%= render('shared/no_resource', resources: 'Activities') %>
+    </div>
+  <% else %>
+    <% posts.where(category: 'Videos').each do |post| %>
+      <%= render 'posts/post', post: post %>
+    <% end %>
+<!--         render_activities(@activities, layout: '/shared/activity')  -->
+    <%= render 'shared/paginate', resources: @activities %>
+  <% end %>
+</div>
+
+
+<!-- ---------------------------------------------------------------------------------------- -->
+<!-- JAVASCRIPT FOR TABS  -->
+<%= content_for :after_js do %>
+  <%= javascript_tag do %>
+    $('ul.category-tabs').each(function(){
+      // For each set of tabs, we want to keep track of
+      // which tab is active and its associated content
+      var $active, $content, $links = $(this).find('a');
+
+      // If the location.hash matches one of the links, use that as the active tab.
+      // If no match is found, use the first link as the initial active tab.
+      $active = $($links.filter('[href="'+location.hash+'"]')[0] || $links[0]);
+      $active.addClass('active');
+
+      $content = $($active[0].hash);
+
+      // Hide the remaining content
+      $links.not($active).each(function () {
+        $(this.hash).hide();
+      });
+
+      // Bind the click event handler
+      $(this).on('click', 'a', function(e){
+        // Make the old tab inactive.
+        $active.removeClass('active');
+        $content.hide();
+
+        // Update the variables with the new link and content
+        $active = $(this);
+        $content = $(this.hash);
+
+        // Make the tab active.
+        $active.addClass('active');
+        $content.show();
+
+        // Prevent the anchor's default click action
+        e.preventDefault();
+      });
+    });
+  <% end %>
+<% end %>

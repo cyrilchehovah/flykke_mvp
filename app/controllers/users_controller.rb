@@ -6,7 +6,6 @@ class UsersController < ApplicationController
 
   def show
     @activities = PublicActivity::Activity.where(owner: @user).order(created_at: :desc).paginate(page: params[:page], per_page: 10)
-    @user = User.find(params[:id])
   end
 
   def edit

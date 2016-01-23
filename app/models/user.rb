@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   acts_as_follower
   acts_as_followable
+  acts_as_voter
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -15,7 +16,7 @@ mount_uploader :cover, AvatarUploader
 validates_presence_of :first_name, :last_name, :email, :password
 
 
-def self.find_for_facebook_oauth(auth)
+  def self.find_for_facebook_oauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.provider = auth.provider
       user.uid = auth.uid
@@ -28,6 +29,12 @@ def self.find_for_facebook_oauth(auth)
       user.token_expiry = Time.at(auth.credentials.expires_at)
     end
   end
+
+    def number_of_flykkes_received
+      array = self.posts.map { |post| [ post.get_likes(:vote_scope => 'flykke').size ] }
+      a = array.inject{|sum,x| sum + x }
+      return a.inject{|sum,x| sum + x }
+    end
 end
 
 

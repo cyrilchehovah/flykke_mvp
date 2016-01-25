@@ -19,10 +19,14 @@
     <% end %>
   </div>
 
+<!-- media-aside / Flykke and Creator section -->
   <div class="media-aside">
+    <!-- delete -->
     <% if current_user == post.user %>
-      <%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %>
+      <%= link_to 'X', post, method: :delete, data: { confirm: 'Are you sure?' }, class: "media-btn-delete" %>
     <% end %>
+
+    <!-- Creator's Profile-section -->
     <section class="media-section text-center">
       <img src="<%= post.user.picture %>" alt="user-picture" class="media media-profile-picture result-img img-responsive">
       <small> <i class="fa fa-clock-o"></i> <%= time_ago_in_words(post.created_at) %> ago - by
@@ -32,21 +36,40 @@
       </small>
       <%= render 'follows/form', user: post.user %>
     </section>
-    <section class="media-section">
-      <h2>Share</h2>
-      ...
-    </section>
-    <section class="media-section">
+
+    <!-- Upvotes + Flykkes Section  -->
+    <section class="media-section ">
       <%= render 'likes/form', post: post %>
     </section>
   </div>
 </div>
 
+<!-- Comment-section -->
 <div class="card col-xs-8 col-md-offset-2">
-  <div class="card paper">
     <details>
-      <summary style="padding:1em;">
+      <summary style="padding:5px;">
         <div class="comments-logo">
+
+            <!-- upvote section -->
+            <div class='post-upvote'>
+              <%= link_to upvote_path(id: post.id), method: :put, remote: true do %>
+                <div class="post-upvote-arrow">
+                </div>
+              <% end %>
+
+              <% if post.get_upvotes.size > 1 %>
+                <h3 class="post-upvote-count" id="upvote_number"><%= render 'likes/upvote_number', post: post %></h3>
+              <% else %>
+                <h3 class="post-upvote-count" id="upvote_number"><%= render 'likes/upvote_number', post: post %></h3>
+              <% end %>
+
+              <%= link_to downvote_path(id: post.id), method: :put do %>
+                <div class="post-downvote-arrow">
+                </div>
+              <% end %>
+            </div>
+
+            <!-- comment section -->
             <h4 id="comment_title">
               <i class="fa fa-comment"><%= render 'posts/comment_title', comments: post.comments %></i>
             </h4>
@@ -58,9 +81,8 @@
           <%= render 'comments/comment', comment: comment %>
         <% end %>
       </div>
-      <div class="form">
-        <%= render 'comments/form', post: post, comment: Comment.new %>
-      </div>
     </details>
-  </div>
+    <div class="form comments-new">
+      <%= render 'comments/form', post: post, comment: Comment.new %>
+    </div>
 </div>

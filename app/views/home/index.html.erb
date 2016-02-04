@@ -1,9 +1,12 @@
 <!-- HOMEPAGE WHEN SIGNED IN -->
-
-<div class="row">
-  <div id="newsfeed" class="col-md-12 no-padding">
-    <h1 class="text-center"> Welcome on Flykke! </h1>
-    <%= render 'shared/categories/category_newsfeed', posts: @posts %>
+<div class="container">
+  <div class="row">
+    <div id="newsfeed" class="col-xs-12 no-padding">
+      <!-- Sidebar -->
+      <%= render 'shared/sidebar', user: @user %>
+      <h1 class="text-center"> Welcome on Flykke! </h1>
+      <%= render 'shared/categories/category_newsfeed', posts: @posts %>
+    </div>
   </div>
 </div>
 

@@ -1,9 +1,10 @@
 <!--  THE FLYKKE'S POST STRUCTURE  -->
-<div class="media col-xs-8 col-md-offset-2">
+<div class="media col-xs-10 col-md-offset-2">
   <div class="media-body">
     <%= link_to post.url, :target => "_blank", class: "media-link" do %>
       <section class="media-section">
          <h2><%= post.title %> <span class="label label-primary pull-right"><%= post.category %></h2></span>
+         <h4><i class="fa fa-clock-o"></i> <%= time_ago_in_words(post.created_at) %> ago</h4>
       </section>
       <section class="media-section">
         <img src="<%= post.image %>" alt="post-image" class="post-img img-responsive">
@@ -29,7 +30,7 @@
     <!-- Creator's Profile-section -->
     <section class="media-section text-center">
       <img src="<%= post.user.picture %>" alt="user-picture" class="media media-profile-picture result-img img-responsive">
-      <small> <i class="fa fa-clock-o"></i> <%= time_ago_in_words(post.created_at) %> ago - by
+      <small> By
         <%= link_to user_path(post.user) do %>
           <%= post.user.first_name %> <%= post.user.last_name %>
         <% end %>
@@ -44,45 +45,4 @@
   </div>
 </div>
 
-<!-- Comment-section -->
-<div class="card col-xs-8 col-md-offset-2">
-    <details>
-      <summary style="padding:5px;">
-        <div class="comments-logo">
 
-            <!-- upvote section -->
-            <div class='post-upvote'>
-              <%= link_to upvote_path(id: post.id), method: :put, remote: true do %>
-                <div class="post-upvote-arrow">
-                </div>
-              <% end %>
-
-              <% if post.get_upvotes.size > 1 %>
-                <h3 class="post-upvote-count" id="upvote_number"><%= render 'likes/upvote_number', post: post %></h3>
-              <% else %>
-                <h3 class="post-upvote-count" id="upvote_number"><%= render 'likes/upvote_number', post: post %></h3>
-              <% end %>
-
-              <%= link_to downvote_path(id: post.id), method: :put do %>
-                <div class="post-downvote-arrow">
-                </div>
-              <% end %>
-            </div>
-
-            <!-- comment section -->
-            <h4 id="comment_title">
-              <i class="fa fa-comment"><%= render 'posts/comment_title', comments: post.comments %></i>
-            </h4>
-        </div>
-      </summary>
-
-      <div id="comments">
-        <% post.comments.each do |comment| %>
-          <%= render 'comments/comment', comment: comment %>
-        <% end %>
-      </div>
-    </details>
-    <div class="form comments-new">
-      <%= render 'comments/form', post: post, comment: Comment.new %>
-    </div>
-</div>

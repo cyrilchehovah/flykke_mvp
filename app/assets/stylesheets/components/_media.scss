@@ -1,6 +1,6 @@
 .media {
   display: flex;
-  border: $gray 1px solid;
+  border: $contour-blue 1px solid;
   padding: 0px;
   border-radius: 5px 5px 0px 0px;
   &-profile-picture {
@@ -42,8 +42,8 @@
     flex: 0 0 350px;
     padding: 30px;
     align-self: stretch;
-    background: $gray-light;
-    border-left: 1px solid $gray;
+    background: $white-blue;
+    border-left: 1px solid $contour-blue;
   }
   h1, h2, h3, h4 {
     padding: 0px;
@@ -67,6 +67,6 @@
     padding: 5px;
     padding-bottom: 5px;
     font-size: 16px;
-    color: $white-blue;
+    color: $gray-light;
   }
 }
